@@ -1,7 +1,7 @@
 <resources>
     <string name="website">Website</string>
     <string name="email">E-posta</string>
-    <string name="version">Versiyon %s</string>
+    <string name="version">Sürüm %s</string>
     <string name="error">Hata</string>
 
     <string name="rate_five_stars">Bu uygulamaya 5 yıldız ver</string>
