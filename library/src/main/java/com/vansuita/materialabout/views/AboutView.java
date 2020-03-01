@@ -212,7 +212,7 @@ public final class AboutView extends FrameLayout {
 
     private void setupBitmaps(AboutBuilder bundle) {
         setBitmap(ivCover, bundle.getCover(), bundle.getCoverRes());
-        setBitmap(ivPhoto, bundle.getPhoto(), bundle.getPhotoRes());
+        setCircularBitmap(ivPhoto, bundle.getPhoto(), bundle.getPhotoRes());
         setBitmap(ivAppIcon, bundle.getAppIcon(), bundle.getAppIconRes());
     }
 
@@ -235,7 +235,7 @@ public final class AboutView extends FrameLayout {
             if (bitmap != null)
                 layers = new Drawable[]{
                         ContextCompat.getDrawable(getContext(), R.drawable.circular_shape),
-                        new BitmapDrawable(bitmap)
+                        new BitmapDrawable(getResources(),bitmap)
                 };
             else
                 layers = new Drawable[]{
