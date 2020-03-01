@@ -26,15 +26,16 @@
             android:paddingLeft="3dp"
             android:paddingRight="3dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/photo"
                 android:layout_width="@dimen/profile_picture_size"
                 android:layout_height="@dimen/profile_picture_size"
                 android:layout_gravity="center_horizontal"
+                android:drawingCacheQuality="auto"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/profile_picture"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FFF"/>
+                app:civ_border_color="#FFF"
+                app:civ_border_width="2dp" />
 
             <TextView
                 android:id="@+id/name"

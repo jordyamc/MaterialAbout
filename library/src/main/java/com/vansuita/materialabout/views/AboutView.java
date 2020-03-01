@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.vansuita.library.Icon;
 import com.vansuita.materialabout.R;
 import com.vansuita.materialabout.builder.AboutBuilder;
@@ -41,7 +42,7 @@ public final class AboutView extends FrameLayout {
     private LayoutInflater layoutInflater;
 
     private CardView cvHolder;
-    private CircleImageView ivPhoto;
+    private CircularImageView ivPhoto;
     private ImageView ivCover;
     private TextView tvName;
     private TextView tvSubTitle;
