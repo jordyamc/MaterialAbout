@@ -8,7 +8,7 @@ import com.vansuita.materialabout.views.ViewIdGenerator;
 /**
  * Created by jrvansuita on 11/02/17.
  */
-public final class Item {
+public class Item {
 
     private int id;
     private String label;

@@ -287,8 +287,22 @@ public final class AboutBuilder {
      * @return the same {@link AboutBuilder} instance
      */
     @NonNull
+    public AboutBuilder addLink(int icon, String label, View.OnClickListener onClickListener) {
+        links.add(new ItemRes(icon, label, onClickListener));
+        return this;
+    }
+
+    /**
+     * Adds an link on the links section.
+     *
+     * @param icon            the action icon
+     * @param label           the action title
+     * @param onClickListener the click callback
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
     public AboutBuilder addLink(int icon, int label, View.OnClickListener onClickListener) {
-        return addLink(IconUtil.getBitmap(context, icon), context.getString(label), onClickListener);
+        return addLink(icon, context.getString(label), onClickListener);
     }
 
     /**
@@ -328,19 +342,6 @@ public final class AboutBuilder {
     @NonNull
     public AboutBuilder addLink(int icon, int label, String url) {
         return addLink(icon, label, Uri.parse(url));
-    }
-
-    /**
-     * Adds an link on the links section.
-     *
-     * @param icon            the action icon
-     * @param label           the action title
-     * @param onClickListener the click callback
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder addLink(int icon, String label, View.OnClickListener onClickListener) {
-        return addLink(IconUtil.getBitmap(context, icon), label, onClickListener);
     }
 
     /**

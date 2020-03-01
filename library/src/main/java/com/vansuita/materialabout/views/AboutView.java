@@ -22,12 +22,14 @@ import com.vansuita.library.Icon;
 import com.vansuita.materialabout.R;
 import com.vansuita.materialabout.builder.AboutBuilder;
 import com.vansuita.materialabout.builder.Item;
+import com.vansuita.materialabout.builder.ItemRes;
 import com.vansuita.materialabout.util.RippleUtil;
 import com.vansuita.materialabout.util.VisibleUtil;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by jrvansuita on 10/02/17.
@@ -258,7 +260,10 @@ public final class AboutView extends FrameLayout {
         TextView tvLabel = view.findViewById(R.id.label);
         ImageView ivIcon = view.findViewById(R.id.icon);
 
-        Icon.on(ivIcon).bitmap(item.getIcon()).color(getIconColor()).put();
+        if (item instanceof ItemRes)
+            ivIcon.setImageResource(((ItemRes) item).getIconRes());
+        else
+            Icon.on(ivIcon).bitmap(item.getIcon()).color(getIconColor()).put();
 
         tvLabel.setText(item.getLabel());
         view.setOnClickListener(item.getOnClick());
