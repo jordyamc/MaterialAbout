@@ -25,7 +25,7 @@
     <string name="update_app">업데이트 체크</string>
     <string name="feedback_app">피드백 남기기</string>
     <string name="introduce_app">앱 소개하기</string>
-    <string name="changelog">앱 변경내역</string>
+    <string name="ma_changelog">앱 변경내역</string>
     <string name="remove_ads">광고 제거</string>
     <string name="donate">기부하기</string>
     <string name="help">도움말</string>

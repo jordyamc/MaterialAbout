@@ -1564,7 +1564,7 @@ public final class AboutBuilder {
      */
     @NonNull
     public AboutBuilder addChangeLogAction(View.OnClickListener onClickListener) {
-        return addAction(R.mipmap.changelog, R.string.changelog, onClickListener);
+        return addAction(R.mipmap.changelog, R.string.ma_changelog, onClickListener);
     }
 
     /**
