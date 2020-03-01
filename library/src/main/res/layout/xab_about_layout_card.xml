@@ -97,24 +97,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/app_icon"
                         android:layout_toRightOf="@id/app_icon"
-                        android:orientation="vertical"
-                        android:layout_toEndOf="@id/app_icon">
+                        android:gravity="start"
+                        android:minWidth="100dp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/app_name"
                             style="@style/Name"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:gravity="start"
                             android:maxLines="1"
-                            android:text="Your App Name" />
+                            android:text="Your App Name"
+                            tools:text="IKKU" />
 
                         <TextView
                             android:id="@+id/app_title"
                             style="@style/TextLabel"
                             android:gravity="start"
                             android:maxLines="1"
-                            android:text="Just a sub title" />
+                            android:text="Just a sub title"
+                            tools:text="@string/version" />
 
 
                     </LinearLayout>
