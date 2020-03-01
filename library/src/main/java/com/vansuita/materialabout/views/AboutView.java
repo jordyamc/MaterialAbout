@@ -4,6 +4,7 @@ package com.vansuita.materialabout.views;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -260,9 +261,10 @@ public final class AboutView extends FrameLayout {
         TextView tvLabel = view.findViewById(R.id.label);
         ImageView ivIcon = view.findViewById(R.id.icon);
 
-        if (item instanceof ItemRes)
+        if (item instanceof ItemRes) {
             ivIcon.setImageResource(((ItemRes) item).getIconRes());
-        else
+            ivIcon.setColorFilter(getIconColor(), PorterDuff.Mode.SRC_IN);
+        }else
             Icon.on(ivIcon).bitmap(item.getIcon()).color(getIconColor()).put();
 
         tvLabel.setText(item.getLabel());
