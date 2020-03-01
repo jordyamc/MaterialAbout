@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_holder"
     style="@style/Card"
     android:layout_margin="10dp"
@@ -35,7 +36,10 @@
                 android:scaleType="centerCrop"
                 android:src="@mipmap/profile_picture"
                 app:civ_border_color="#FFF"
-                app:civ_border_width="2dp" />
+                app:civ_border_width="2dp"
+                app:civ_circle_color="#00FFFFFF"
+                app:srcCompat="@drawable/ic_knf_logo"
+                tools:srcCompat="@drawable/ic_knf_logo" />
 
             <TextView
                 android:id="@+id/name"
