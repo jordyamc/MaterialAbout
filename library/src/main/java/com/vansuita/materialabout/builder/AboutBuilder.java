@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.vansuita.materialabout.R;
@@ -17,6 +16,9 @@ import com.vansuita.materialabout.util.IntentUtil;
 import com.vansuita.materialabout.views.AboutView;
 
 import java.util.LinkedList;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 
 import static com.vansuita.materialabout.R.mipmap.share;
 
@@ -36,31 +38,29 @@ public final class AboutBuilder {
     private String appTitle;
 
     private Bitmap photo;
+    private int photoRes = -1;
     private Bitmap cover;
+    private int coverRes = -1;
     private Bitmap appIcon;
+    private int appIconRes = -1;
 
     private int nameColor;
     private int subTitleColor;
     private int briefColor;
     private int iconColor;
     private int backgroundColor;
-
     private boolean showDivider = true;
     private int dividerColor = 0;
     private int dividerHeight = 4;
     private int dividerDashWidth = 15;
     private int dividerDashGap = 15;
-
     private boolean linksAnimated = true;
     private int linksColumnsCount = 5;
     private int actionsColumnsCount = 2;
-
     private boolean wrapScrollView = false;
     private boolean showAsCard = true;
-
     private LinkedList<Item> links = new LinkedList<>();
     private LinkedList<Item> actions = new LinkedList<>();
-
     /**
      * @deprecated Used {@link #with(Context)} instead.
      */
@@ -73,6 +73,54 @@ public final class AboutBuilder {
     public static AboutBuilder with(Context context) {
         //noinspection deprecation
         return new AboutBuilder(context);
+    }
+
+    public int getPhotoRes() {
+        return photoRes;
+    }
+
+    /**
+     * Sets the developer photo
+     *
+     * @param photo the image
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setPhotoRes(int photo) {
+        photoRes = photo;
+        return this;
+    }
+
+    public int getCoverRes() {
+        return coverRes;
+    }
+
+    /**
+     * Sets a about cover
+     *
+     * @param cover the image
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setCoverRes(int cover) {
+        coverRes = cover;
+        return this;
+    }
+
+    public int getAppIconRes() {
+        return appIconRes;
+    }
+
+    /**
+     * Sets an icon to display as app icon
+     *
+     * @param icon the app icon
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setAppIconRes(int icon) {
+        appIconRes = icon;
+        return this;
     }
 
     private String getApplicationID() {
@@ -112,121 +160,6 @@ public final class AboutBuilder {
     }
 
     /**
-     * Sets the developer name
-     *
-     * @param text the name
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setName(String text) {
-        this.name = text;
-        return this;
-    }
-
-    /**
-     * Sets the developer name
-     *
-     * @param text the name
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setName(int text) {
-        return setName(context.getString(text));
-    }
-
-    /**
-     * Sets the sub title. It will be place below the developer name
-     *
-     * @param text the sub title
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setSubTitle(String text) {
-        this.subTitle = text;
-        return this;
-    }
-
-    /**
-     * Sets the sub title. It will be place below the developer name
-     *
-     * @param text the sub title
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setSubTitle(int text) {
-        return setSubTitle(context.getString(text));
-    }
-
-    /**
-     * Sets a personal brief
-     *
-     * @param text the brief
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setBrief(String text) {
-        this.brief = text;
-        return this;
-    }
-
-    /**
-     * Sets a personal brief
-     *
-     * @param text the brief
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setBrief(int text) {
-        return setBrief(context.getString(text));
-    }
-
-    /**
-     * Sets the app name
-     *
-     * @param text the app name
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setAppName(String text) {
-        this.appName = text;
-        return this;
-    }
-
-    /**
-     * Sets the app name
-     *
-     * @param text the app name
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setAppName(int text) {
-        return setAppName(context.getString(text));
-    }
-
-    /**
-     * Sets the app title
-     *
-     * @param text the title
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setAppTitle(String text) {
-        this.appTitle = text;
-        return this;
-    }
-
-    /**
-     * Sets the app title
-     *
-     * @param text the title
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setAppTitle(int text) {
-        return setAppTitle(context.getString(text));
-    }
-
-    /**
      * Displays the app version below the app name
      *
      * @return the same {@link AboutBuilder} instance
@@ -238,277 +171,6 @@ public final class AboutBuilder {
         } catch (PackageManager.NameNotFoundException e) {
             return setAppTitle(R.string.error);
         }
-    }
-
-    /**
-     * Sets the developer photo
-     *
-     * @param photo the image
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setPhoto(Bitmap photo) {
-        this.photo = photo;
-        return this;
-    }
-
-    /**
-     * Sets the developer photo
-     *
-     * @param photo the image
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setPhoto(int photo) {
-        return setPhoto(IconUtil.getBitmap(context, photo));
-    }
-
-    /**
-     * Sets the developer photo
-     *
-     * @param photo the image
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setPhoto(@NonNull BitmapDrawable photo) {
-        return setPhoto(IconUtil.getBitmap(photo));
-    }
-
-    /**
-     * Sets a about cover
-     *
-     * @param cover the image
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setCover(Bitmap cover) {
-        this.cover = cover;
-        return this;
-    }
-
-    /**
-     * Sets a about cover
-     *
-     * @param cover the image
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setCover(int cover) {
-        return setCover(IconUtil.getBitmap(context, cover));
-    }
-
-    /**
-     * Sets a about cover
-     *
-     * @param cover the image
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setCover(@NonNull BitmapDrawable cover) {
-        return setCover(IconUtil.getBitmap(cover));
-    }
-
-    /**
-     * Sets an icon to display as app icon
-     *
-     * @param icon the app icon
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setAppIcon(Bitmap icon) {
-        this.appIcon = icon;
-        return this;
-    }
-
-    /**
-     * Sets an icon to display as app icon
-     *
-     * @param icon the app icon
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setAppIcon(int icon) {
-        return setAppIcon(IconUtil.getBitmap(context, icon));
-    }
-
-    /**
-     * Sets an icon to display as app icon
-     *
-     * @param icon the app icon
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setAppIcon(@NonNull BitmapDrawable icon) {
-        return setAppIcon(IconUtil.getBitmap(icon));
-    }
-
-    /**
-     * Sets the name text color
-     *
-     * @param color the color resource or the real color.
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setNameColor(int color) {
-        this.nameColor = ColorUtil.get(context, color);
-        return this;
-    }
-
-    /**
-     * Sets the sub title text color
-     *
-     * @param color the color resource or the real color.
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setSubTitleColor(int color) {
-        this.subTitleColor = ColorUtil.get(context, color);
-        return this;
-    }
-
-    /**
-     * Sets the brief text color
-     *
-     * @param color the color resource or the real color.
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setBriefColor(int color) {
-        this.briefColor = ColorUtil.get(context, color);
-        return this;
-    }
-
-    /**
-     * Sets the divider color
-     *
-     * @param color the color resource or the real color.
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setDividerColor(int color) {
-        this.dividerColor = ColorUtil.get(context, color);
-        return this;
-    }
-
-    /**
-     * Sets the icons color
-     *
-     * @param color the color resource or the real color.
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setIconColor(int color) {
-        this.iconColor = ColorUtil.get(context, color);
-        return this;
-    }
-
-    /**
-     * Sets the about view background color
-     *
-     * @param color the color resource or the real color.
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setBackgroundColor(int color) {
-        this.backgroundColor = ColorUtil.get(context, color);
-        return this;
-    }
-
-    /**
-     * Sets the maximum number of columns for the actions section
-     *
-     * @param count number of columns
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setActionsColumnsCount(int count) {
-        this.actionsColumnsCount = count;
-        return this;
-    }
-
-
-    /**
-     * Sets the maximum number of columns for the links section
-     *
-     * @param count number of columns
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setLinksColumnsCount(int count) {
-        this.linksColumnsCount = count;
-        return this;
-    }
-
-    /**
-     * Sets an animation when displaying the actions
-     *
-     * @param animate true if you want it
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setLinksAnimated(boolean animate) {
-        this.linksAnimated = animate;
-        return this;
-    }
-
-    /**
-     * Sets the divider height
-     *
-     * @param dividerHeight size of the height
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setDividerHeight(int dividerHeight) {
-        this.dividerHeight = dividerHeight;
-        return this;
-    }
-
-    /**
-     * Sets the divider dash width
-     *
-     * @param dividerDashWidth size of the width
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setDividerDashWidth(int dividerDashWidth) {
-        this.dividerDashWidth = dividerDashWidth;
-        return this;
-    }
-
-    /**
-     * Sets the divider dash gap
-     *
-     * @param dividerDashGap size of the gap
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setDividerDashGap(int dividerDashGap) {
-        this.dividerDashGap = dividerDashGap;
-        return this;
-    }
-
-    /**
-     * Displays a divider line between the about sections
-     *
-     * @param showDivider true if you want it
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setShowDivider(boolean showDivider) {
-        this.showDivider = showDivider;
-        return this;
-    }
-
-    /**
-     * Places the about view inside a {@link android.widget.ScrollView}
-     *
-     * @param wrapScrollView true if you want to wrap
-     * @return the same {@link AboutBuilder} instance
-     */
-    @NonNull
-    public AboutBuilder setWrapScrollView(boolean wrapScrollView) {
-        this.wrapScrollView = wrapScrollView;
-        return this;
     }
 
     /**
@@ -823,7 +485,6 @@ public final class AboutBuilder {
     public AboutBuilder addLink(@NonNull BitmapDrawable icon, String label, String url) {
         return addLink(icon, label, Uri.parse(url));
     }
-
 
     /**
      * Adds a GitHub profile link on the links section
@@ -1641,7 +1302,6 @@ public final class AboutBuilder {
         return addUpdateAction(context.getString(appId));
     }
 
-
     /**
      * Adds an action button to update the app using Google Play Store
      *
@@ -1731,7 +1391,6 @@ public final class AboutBuilder {
     public AboutBuilder addShareAction(int subject) {
         return addShareAction(context.getString(subject));
     }
-
 
     /**
      * Adds a feedback action button
@@ -1929,7 +1588,6 @@ public final class AboutBuilder {
         return addAction(R.mipmap.ads, R.string.remove_ads, onClickListener);
     }
 
-
     /**
      * Adds an remove ads action button
      *
@@ -1961,19 +1619,6 @@ public final class AboutBuilder {
     @NonNull
     public AboutBuilder addDonateAction(Intent intent) {
         return addDonateAction(util.clickIntent(intent));
-    }
-
-    /**
-     * Wraps the content in a {@link android.support.v7.widget.CardView}
-     *
-     * @param showAsCard true if show in a CardView
-     * @return the same {@link AboutBuilder} instance
-     */
-
-    @NonNull
-    public AboutBuilder setShowAsCard(boolean showAsCard) {
-        this.showAsCard = showAsCard;
-        return this;
     }
 
     /**
@@ -2013,92 +1658,490 @@ public final class AboutBuilder {
         return showAsCard;
     }
 
+    /**
+     * Wraps the content in a {@link CardView}
+     *
+     * @param showAsCard true if show in a CardView
+     * @return the same {@link AboutBuilder} instance
+     */
+
+    @NonNull
+    public AboutBuilder setShowAsCard(boolean showAsCard) {
+        this.showAsCard = showAsCard;
+        return this;
+    }
+
     public String getName() {
         return name;
+    }
+
+    /**
+     * Sets the developer name
+     *
+     * @param text the name
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setName(String text) {
+        this.name = text;
+        return this;
+    }
+
+    /**
+     * Sets the developer name
+     *
+     * @param text the name
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setName(int text) {
+        return setName(context.getString(text));
     }
 
     public String getSubTitle() {
         return subTitle;
     }
 
+    /**
+     * Sets the sub title. It will be place below the developer name
+     *
+     * @param text the sub title
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setSubTitle(String text) {
+        this.subTitle = text;
+        return this;
+    }
+
+    /**
+     * Sets the sub title. It will be place below the developer name
+     *
+     * @param text the sub title
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setSubTitle(int text) {
+        return setSubTitle(context.getString(text));
+    }
+
     public String getBrief() {
         return brief;
+    }
+
+    /**
+     * Sets a personal brief
+     *
+     * @param text the brief
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setBrief(String text) {
+        this.brief = text;
+        return this;
+    }
+
+    /**
+     * Sets a personal brief
+     *
+     * @param text the brief
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setBrief(int text) {
+        return setBrief(context.getString(text));
     }
 
     public String getAppName() {
         return appName;
     }
 
+    /**
+     * Sets the app name
+     *
+     * @param text the app name
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setAppName(String text) {
+        this.appName = text;
+        return this;
+    }
+
+    /**
+     * Sets the app name
+     *
+     * @param text the app name
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setAppName(int text) {
+        return setAppName(context.getString(text));
+    }
+
     public String getAppTitle() {
         return appTitle;
+    }
+
+    /**
+     * Sets the app title
+     *
+     * @param text the title
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setAppTitle(String text) {
+        this.appTitle = text;
+        return this;
+    }
+
+    /**
+     * Sets the app title
+     *
+     * @param text the title
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setAppTitle(int text) {
+        return setAppTitle(context.getString(text));
     }
 
     public Bitmap getPhoto() {
         return photo;
     }
 
+    /**
+     * Sets the developer photo
+     *
+     * @param photo the image
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setPhoto(Bitmap photo) {
+        this.photo = photo;
+        return this;
+    }
+
+    /**
+     * Sets the developer photo
+     *
+     * @param photo the image
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setPhoto(int photo) {
+        return setPhoto(IconUtil.getBitmap(context, photo));
+    }
+
+    /**
+     * Sets the developer photo
+     *
+     * @param photo the image
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setPhoto(@NonNull BitmapDrawable photo) {
+        return setPhoto(IconUtil.getBitmap(photo));
+    }
+
     public Bitmap getCover() {
         return cover;
+    }
+
+    /**
+     * Sets a about cover
+     *
+     * @param cover the image
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setCover(Bitmap cover) {
+        this.cover = cover;
+        return this;
+    }
+
+    /**
+     * Sets a about cover
+     *
+     * @param cover the image
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setCover(int cover) {
+        return setCover(IconUtil.getBitmap(context, cover));
+    }
+
+    /**
+     * Sets a about cover
+     *
+     * @param cover the image
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setCover(@NonNull BitmapDrawable cover) {
+        return setCover(IconUtil.getBitmap(cover));
     }
 
     public Bitmap getAppIcon() {
         return appIcon;
     }
 
+    /**
+     * Sets an icon to display as app icon
+     *
+     * @param icon the app icon
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setAppIcon(Bitmap icon) {
+        this.appIcon = icon;
+        return this;
+    }
+
+    /**
+     * Sets an icon to display as app icon
+     *
+     * @param icon the app icon
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setAppIcon(int icon) {
+        return setAppIcon(IconUtil.getBitmap(context, icon));
+    }
+
+    /**
+     * Sets an icon to display as app icon
+     *
+     * @param icon the app icon
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setAppIcon(@NonNull BitmapDrawable icon) {
+        return setAppIcon(IconUtil.getBitmap(icon));
+    }
+
     public int getNameColor() {
         return nameColor;
+    }
+
+    /**
+     * Sets the name text color
+     *
+     * @param color the color resource or the real color.
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setNameColor(int color) {
+        this.nameColor = ColorUtil.get(context, color);
+        return this;
     }
 
     public int getSubTitleColor() {
         return subTitleColor;
     }
 
+    /**
+     * Sets the sub title text color
+     *
+     * @param color the color resource or the real color.
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setSubTitleColor(int color) {
+        this.subTitleColor = ColorUtil.get(context, color);
+        return this;
+    }
+
     public int getBriefColor() {
         return briefColor;
+    }
+
+    /**
+     * Sets the brief text color
+     *
+     * @param color the color resource or the real color.
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setBriefColor(int color) {
+        this.briefColor = ColorUtil.get(context, color);
+        return this;
     }
 
     public int getDividerColor() {
         return dividerColor;
     }
 
+    /**
+     * Sets the divider color
+     *
+     * @param color the color resource or the real color.
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setDividerColor(int color) {
+        this.dividerColor = ColorUtil.get(context, color);
+        return this;
+    }
+
     public int getIconColor() {
         return iconColor;
+    }
+
+    /**
+     * Sets the icons color
+     *
+     * @param color the color resource or the real color.
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setIconColor(int color) {
+        this.iconColor = ColorUtil.get(context, color);
+        return this;
     }
 
     public int getBackgroundColor() {
         return backgroundColor;
     }
 
+    /**
+     * Sets the about view background color
+     *
+     * @param color the color resource or the real color.
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setBackgroundColor(int color) {
+        this.backgroundColor = ColorUtil.get(context, color);
+        return this;
+    }
+
     public int getLinksColumnsCount() {
         return linksColumnsCount;
+    }
+
+    /**
+     * Sets the maximum number of columns for the links section
+     *
+     * @param count number of columns
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setLinksColumnsCount(int count) {
+        this.linksColumnsCount = count;
+        return this;
     }
 
     public int getActionsColumnsCount() {
         return actionsColumnsCount;
     }
 
+    /**
+     * Sets the maximum number of columns for the actions section
+     *
+     * @param count number of columns
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setActionsColumnsCount(int count) {
+        this.actionsColumnsCount = count;
+        return this;
+    }
+
     public boolean isShowDivider() {
         return showDivider;
+    }
+
+    /**
+     * Displays a divider line between the about sections
+     *
+     * @param showDivider true if you want it
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setShowDivider(boolean showDivider) {
+        this.showDivider = showDivider;
+        return this;
     }
 
     public int getDividerHeight() {
         return dividerHeight;
     }
 
+    /**
+     * Sets the divider height
+     *
+     * @param dividerHeight size of the height
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setDividerHeight(int dividerHeight) {
+        this.dividerHeight = dividerHeight;
+        return this;
+    }
+
     public int getDividerDashWidth() {
         return dividerDashWidth;
+    }
+
+    /**
+     * Sets the divider dash width
+     *
+     * @param dividerDashWidth size of the width
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setDividerDashWidth(int dividerDashWidth) {
+        this.dividerDashWidth = dividerDashWidth;
+        return this;
     }
 
     public int getDividerDashGap() {
         return dividerDashGap;
     }
 
+    /**
+     * Sets the divider dash gap
+     *
+     * @param dividerDashGap size of the gap
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setDividerDashGap(int dividerDashGap) {
+        this.dividerDashGap = dividerDashGap;
+        return this;
+    }
+
     public boolean isLinksAnimated() {
         return linksAnimated;
     }
 
+    /**
+     * Sets an animation when displaying the actions
+     *
+     * @param animate true if you want it
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setLinksAnimated(boolean animate) {
+        this.linksAnimated = animate;
+        return this;
+    }
+
     public boolean isWrapScrollView() {
         return wrapScrollView;
+    }
+
+    /**
+     * Places the about view inside a {@link android.widget.ScrollView}
+     *
+     * @param wrapScrollView true if you want to wrap
+     * @return the same {@link AboutBuilder} instance
+     */
+    @NonNull
+    public AboutBuilder setWrapScrollView(boolean wrapScrollView) {
+        this.wrapScrollView = wrapScrollView;
+        return this;
     }
 
     @NonNull

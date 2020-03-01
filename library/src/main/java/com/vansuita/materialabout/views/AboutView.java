@@ -8,9 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +24,10 @@ import com.vansuita.materialabout.builder.AboutBuilder;
 import com.vansuita.materialabout.builder.Item;
 import com.vansuita.materialabout.util.RippleUtil;
 import com.vansuita.materialabout.util.VisibleUtil;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 
 /**
  * Created by jrvansuita on 10/02/17.
@@ -205,16 +206,19 @@ public final class AboutView extends FrameLayout {
     }
 
     private void setupBitmaps(AboutBuilder bundle) {
-        setBitmap(ivCover, bundle.getCover());
-        setBitmap(ivPhoto, bundle.getPhoto());
-        setBitmap(ivAppIcon, bundle.getAppIcon());
+        setBitmap(ivCover, bundle.getCover(), bundle.getCoverRes());
+        setBitmap(ivPhoto, bundle.getPhoto(), bundle.getPhotoRes());
+        setBitmap(ivAppIcon, bundle.getAppIcon(), bundle.getAppIconRes());
     }
 
-    private void setBitmap(@NonNull ImageView iv, @Nullable Bitmap bitmap) {
-        if (bitmap == null) {
+    private void setBitmap(@NonNull ImageView iv, @Nullable Bitmap bitmap, int res) {
+        if (bitmap == null && res == -1) {
             iv.setVisibility(GONE);
         } else {
-            iv.setImageBitmap(bitmap);
+            if (bitmap != null)
+                iv.setImageBitmap(bitmap);
+            else
+                iv.setImageResource(res);
         }
     }
 
@@ -273,7 +277,7 @@ public final class AboutView extends FrameLayout {
             cvHolder.setMaxCardElevation(0);
             cvHolder.setPreventCornerOverlap(false);
 
-            ( (LayoutParams)cvHolder.getLayoutParams()).setMargins(0, 0, 0, 0);
+            ((LayoutParams) cvHolder.getLayoutParams()).setMargins(0, 0, 0, 0);
         }
     }
 
