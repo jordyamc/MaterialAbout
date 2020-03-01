@@ -31,6 +31,8 @@
                 android:id="@+id/photo"
                 android:layout_width="@dimen/profile_picture_size"
                 android:layout_height="@dimen/profile_picture_size"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="centerCrop"
                 tools:srcCompat="@drawable/ic_knf_logo" />
