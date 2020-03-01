@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -19,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.vansuita.library.Icon;
 import com.vansuita.materialabout.R;
 import com.vansuita.materialabout.builder.AboutBuilder;
@@ -30,8 +30,9 @@ import com.vansuita.materialabout.util.VisibleUtil;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
-import de.hdodenhof.circleimageview.CircleImageView;
+import androidx.core.content.ContextCompat;
 
 /**
  * Created by jrvansuita on 10/02/17.
@@ -42,7 +43,7 @@ public final class AboutView extends FrameLayout {
     private LayoutInflater layoutInflater;
 
     private CardView cvHolder;
-    private CircularImageView ivPhoto;
+    private AppCompatImageView ivPhoto;
     private ImageView ivCover;
     private TextView tvName;
     private TextView tvSubTitle;
@@ -226,6 +227,25 @@ public final class AboutView extends FrameLayout {
         }
     }
 
+    private void setCircularBitmap(@NonNull ImageView iv, @Nullable Bitmap bitmap, int res) {
+        if (bitmap == null && res == -1) {
+            iv.setVisibility(GONE);
+        } else {
+            Drawable[] layers;
+            if (bitmap != null)
+                layers = new Drawable[]{
+                        ContextCompat.getDrawable(getContext(), R.drawable.circular_shape),
+                        new BitmapDrawable(bitmap)
+                };
+            else
+                layers = new Drawable[]{
+                        ContextCompat.getDrawable(getContext(), R.drawable.circular_shape),
+                        ContextCompat.getDrawable(getContext(), res)
+                };
+            iv.setBackground(new LayerDrawable(layers));
+        }
+    }
+
     private void loadLinks(AboutBuilder bundle) {
         for (Item item : bundle.getLinks()) {
             View v = addItem(vLinks, R.layout.xab_each_link, item);
@@ -265,7 +285,7 @@ public final class AboutView extends FrameLayout {
         if (item instanceof ItemRes) {
             ivIcon.setImageResource(((ItemRes) item).getIconRes());
             ivIcon.setColorFilter(getIconColor(), PorterDuff.Mode.SRC_IN);
-        }else
+        } else
             Icon.on(ivIcon).bitmap(item.getIcon()).color(getIconColor()).put();
 
         tvLabel.setText(item.getLabel());
