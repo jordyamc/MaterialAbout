@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_holder"
     style="@style/Card"
     android:layout_margin="10dp"
@@ -25,13 +26,15 @@
             android:paddingLeft="3dp"
             android:paddingRight="3dp">
 
-            <com.vansuita.materialabout.views.CircleImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/photo"
                 android:layout_width="@dimen/profile_picture_size"
                 android:layout_height="@dimen/profile_picture_size"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/profile_picture" />
+                android:src="@mipmap/profile_picture"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FFF"/>
 
             <TextView
                 android:id="@+id/name"
