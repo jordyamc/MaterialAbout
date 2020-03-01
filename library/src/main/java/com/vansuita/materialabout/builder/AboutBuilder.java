@@ -41,9 +41,9 @@ public final class AboutBuilder {
     private int photoRes = -1;
     private Bitmap cover;
     private int coverRes = -1;
+    private boolean circularPhoto = true;
     private Bitmap appIcon;
     private int appIconRes = -1;
-
     private int nameColor;
     private int subTitleColor;
     private int briefColor;
@@ -73,6 +73,14 @@ public final class AboutBuilder {
     public static AboutBuilder with(Context context) {
         //noinspection deprecation
         return new AboutBuilder(context);
+    }
+
+    public boolean isCircularPhoto() {
+        return circularPhoto;
+    }
+
+    public void setCircularPhoto(boolean circularPhoto) {
+        this.circularPhoto = circularPhoto;
     }
 
     public int getPhotoRes() {

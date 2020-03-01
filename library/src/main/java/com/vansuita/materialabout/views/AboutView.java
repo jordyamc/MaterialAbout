@@ -212,37 +212,40 @@ public final class AboutView extends FrameLayout {
 
     private void setupBitmaps(AboutBuilder bundle) {
         setBitmap(ivCover, bundle.getCover(), bundle.getCoverRes());
-        setCircularBitmap(ivPhoto, bundle.getPhoto(), bundle.getPhotoRes());
+        setCircularBitmap(ivPhoto, bundle.getPhoto(), bundle.getPhotoRes(), bundle.isCircularPhoto());
         setBitmap(ivAppIcon, bundle.getAppIcon(), bundle.getAppIconRes());
     }
 
     private void setBitmap(@NonNull ImageView iv, @Nullable Bitmap bitmap, int res) {
         if (bitmap == null && res == -1) {
             iv.setVisibility(GONE);
-        } else {
-            if (bitmap != null)
-                iv.setImageBitmap(bitmap);
-            else
-                iv.setImageResource(res);
-        }
+        } else if (bitmap != null)
+            iv.setImageBitmap(bitmap);
+        else
+            iv.setImageResource(res);
     }
 
-    private void setCircularBitmap(@NonNull ImageView iv, @Nullable Bitmap bitmap, int res) {
+    private void setCircularBitmap(@NonNull ImageView iv, @Nullable Bitmap bitmap, int res, boolean isCircular) {
         if (bitmap == null && res == -1) {
             iv.setVisibility(GONE);
         } else {
-            Drawable[] layers;
-            if (bitmap != null)
-                layers = new Drawable[]{
-                        ContextCompat.getDrawable(getContext(), R.drawable.circular_shape),
-                        new BitmapDrawable(getResources(),bitmap)
-                };
+            if (isCircular) {
+                Drawable[] layers;
+                if (bitmap != null)
+                    layers = new Drawable[]{
+                            ContextCompat.getDrawable(getContext(), R.drawable.circular_shape),
+                            new BitmapDrawable(getResources(), bitmap)
+                    };
+                else
+                    layers = new Drawable[]{
+                            ContextCompat.getDrawable(getContext(), R.drawable.circular_shape),
+                            ContextCompat.getDrawable(getContext(), res)
+                    };
+                iv.setBackground(new LayerDrawable(layers));
+            } else if (bitmap != null)
+                iv.setImageBitmap(bitmap);
             else
-                layers = new Drawable[]{
-                        ContextCompat.getDrawable(getContext(), R.drawable.circular_shape),
-                        ContextCompat.getDrawable(getContext(), res)
-                };
-            iv.setBackground(new LayerDrawable(layers));
+                iv.setImageResource(res);
         }
     }
 
